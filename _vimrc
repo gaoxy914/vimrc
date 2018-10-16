@@ -252,7 +252,7 @@ function! HasPaste()
     endif
     return ''
 endfunction
-
+" just test
 
 "------------------------------------------------------------------------------
 "  < 判断操作系统是否是 Windows 还是 Linux >
