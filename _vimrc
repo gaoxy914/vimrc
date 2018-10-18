@@ -1,3 +1,5 @@
+set pythonthreedll=D:/Anaconda3/python36.dll
+
 source $VIMRUNTIME/vimrc_example.vim
 autocmd! bufwritepost .vimrc source %
 
@@ -34,6 +36,48 @@ function MyDiff()
     let &shellxquote=l:shxq_sav
   endif
 endfunction
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Plugin Management
+"""""""""""""""""""""""""""""""""""""""""""""""""""
+" Vundle plugin management
+set nocompatible
+filetype off
+set rtp+=$VIM/vimfiles/bundle/Vundle.vim/
+let path='$VIM/vimfiles/bundle'
+call vundle#begin()
+" let Vundle manage Vundle, required
+Plugin 'gmarik/Vundle.Vim'
+" my bundle plugin
+
+" Code Completions
+Plugin 'Shougo/neocomplcache'
+Plugin 'mattn/emmet-vim'
+Plugin 'Raimondi/delimitMate'
+Plugin 'ervandew/supertab'
+Plugin 'Valloric/YouCompleteMe'
+" snippets
+Plugin 'garbas/vim-snipmate'
+Plugin 'honza/vim-snippets'
+" snipmate dependencies
+Plugin 'MarcWeber/vim-addon-mw-utils'
+Plugin 'tomtom/tlib_vim'
+
+" Parenthesis Matching Highlights
+Plugin 'kien/rainbow_parentheses.vim'
+
+" Color Schemes
+Plugin 'rickharris/vim-blackboard'
+Plugin 'altercation/vim-colors-solarized'
+Plugin 'rickharris/vim-monokai'
+Plugin 'tpope/vim-vividchalk'
+Plugin 'Lokaltog/vim-distinguished'
+Plugin 'chriskempson/vim-tomorrow-theme'
+Plugin 'fisadev/fisa-vim-colorscheme'
+
+call vundle#end()
+filetype plugin indent on
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => General
@@ -127,8 +171,7 @@ syntax enable
 " Syntax check
 syntax on
 
-colorscheme desert
-
+colorscheme solarized
 set background=dark
 
 " Set extra options when running in GUI mode
@@ -140,6 +183,8 @@ if has("gui_running")
 endif
 
 set guifont=Ubuntu\ Mono:h13
+
+set t_Co=256
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Files, backups and undo
@@ -180,34 +225,6 @@ set laststatus=2
 set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l\ \ Column:\ %c
 
 """""""""""""""""""""""""""""""""""""""""""""""""""
-" => Plugin Management
-"""""""""""""""""""""""""""""""""""""""""""""""""""
-" Vundle plugin management
-set nocompatible
-filetype off
-set rtp+=$VIM/vimfiles/bundle/Vundle.vim/
-let path='$VIM/vimfiles/bundle'
-call vundle#begin()
-" let Vundle manage Vundle, required
-Plugin 'gmarik/Vundle.Vim'
-" my bundle plugin
-
-" Code Completions
-Plugin 'Shougo/neocomplcache'
-Plugin 'mattn/emmet-vim'
-Plugin 'Raimondi/delimitMate'
-Plugin 'ervandew/supertab'
-" snippets
-Plugin 'garbas/vim-snipmate'
-Plugin 'honza/vim-snippets'
-" snipmate dependencies
-Plugin 'MarcWeber/vim-addon-mw-utils'
-Plugin 'tomtom/tlib_vim'
-
-call vundle#end()
-filetype plugin indent on
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Plugin Configuration
 """""""""""""""""""""""""""""""""""""""""""""""""""
 " NeoComplCache
@@ -240,6 +257,35 @@ let g:neocomplcache_omni_patterns.erlang = '[a-zA-Z]\|:'
 " let g:SuperTabDefultCompletionType='context'
 let g:SuperTabDefaultCompletionType = '<C-X><C-U>'
 let g:SuperTabRetainCompletionType=2
+
+
+" Rainbow parentheses for Lisp and variants
+let g:rbpt_colorpairs = [
+    \ ['brown',       'RoyalBlue3'],
+    \ ['Darkblue',    'SeaGreen3'],
+    \ ['darkgray',    'DarkOrchid3'],
+    \ ['darkgreen',   'firebrick3'],
+    \ ['darkcyan',    'RoyalBlue3'],
+    \ ['darkred',     'SeaGreen3'],
+    \ ['darkmagenta', 'DarkOrchid3'],
+    \ ['brown',       'firebrick3'],
+    \ ['gray',        'RoyalBlue3'],
+    \ ['black',       'SeaGreen3'],
+    \ ['darkmagenta', 'DarkOrchid3'],
+    \ ['Darkblue',    'firebrick3'],
+    \ ['darkgreen',   'RoyalBlue3'],
+    \ ['darkcyan',    'SeaGreen3'],
+    \ ['darkred',     'DarkOrchid3'],
+    \ ['red',         'firebrick3'],
+    \ ]
+let g:rbpt_max = 16
+autocmd Syntax lisp,scheme,clojure,racket RainbowParenthesesToggle
+
+" Solarized
+" let g:solarized_termcolors=256
+let g:solarized_termtrans=1
+let g:solarized_contrast="normal"
+let g:solarized_visibility="normal"
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -504,5 +550,5 @@ func! Run()
     endif
 endfunc
 
-autocmd FileType python map <buffer> <F5> :!python %:p<CR>
+autocmd FileType python map <buffer> <F9> :!python %:p<CR>
 
